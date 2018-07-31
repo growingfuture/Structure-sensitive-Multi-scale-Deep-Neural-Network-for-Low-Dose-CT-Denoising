@@ -149,24 +149,12 @@ removes the sigmoid cross entropy layer in D.
 
 ### Loss Functions for Noise Reduction
 
-(formula and explains)
+![Alt text](https://user-images.githubusercontent.com/37169177/43457875-14f21bba-9503-11e8-9461-e5c734a879c3.PNG)
 
 * L2 loss: 
 The L2 loss can efficiently suppress the background
 noise, but it makes the denoised results unnatural
-and blurs the image contents. This is expected due to its
-regression-to-mean nature [38], [43]. Furthermore, L2 loss
-assumes that background noise is white Gaussian noise, which
-is independent of local image features [44]. However, the noise
-within the CT system comes from various sources, such as
-quantum noise. This is another reason why the diagnostic
-image quality optimized by L2 loss is undesirable.
-The formula of L2 loss is expressed as:
-
-![Alt text]()
-
-
-where H, W, D stand for the height, width, and depth of
+and blurs the image contents. H, W, D stand for the height, width, and depth of
 the 3D image patches, respectively, x denotes gold-standard
 images (NDCT), and G(y) represents the generated images
 from source (LDCT) images y. It is worth noting that since
@@ -174,5 +162,55 @@ L2 loss has appealing properties of differentiability, convexity,
 and symmetry, the mean squared error (MSE) or L2 loss is
 still a popular choice in denoising tasks [45].
 
+-----------------
 
+![Alt text](https://user-images.githubusercontent.com/37169177/43457875-14f21bba-9503-11e8-9461-e5c734a879c3.PNG)
+
+* L1 loss: 
+Compared with L2 loss, L1 loss
+does not over-penalize large differences or tolerate small
+errors between denoised images and gold-standard images.
+Thus, L1 loss can alleviate some limitations of L2 loss we
+mentioned above. Additionally, L1 loss enjoys the same fine
+characteristics as L2 loss, like a fast convergence speed.
+
+------------------
+
+![Alt text](https://user-images.githubusercontent.com/37169177/43457881-1a8c9b2c-9503-11e8-8c0b-802fab0f3fa7.PNG)
+
+
+* Adversarial loss: The improved Wasserstein distance
+with the regularization term proposed in [43] is expressed as:
+
+
+* where the first two terms are computed for Wasserstein distance
+and the third term is the gradient penalty term. It is
+worth noting that z denotes G(y) for brevity.
+
+--------------------
+
+![Alt text](https://user-images.githubusercontent.com/37169177/43457892-1bb8a518-9503-11e8-8eb8-c6a15df3a93e.PNG)
+
+
+* Structural loss: Medical images have strong 3D
+image correlations; their voxels demonstrate strong interdependencies
+which carry diagnostic information. Structural
+similarity index (SSIM) [44] and Multi-scale structural similarity
+index (MS-SSIM) [46] are better perceptually motivated
+metrics than mean-based metrics [44] since SSIM and MSSSIM
+quantify structure errors (difference) between reference
+images and input images, and take advantage of the characteristics
+of the human visual system (HVS).
+
+* where C1,C2 are constants and mx, mz, 0x, 0z, 0xz denote
+local means, standard deviation and cross-covariance of the
+image pair (x; z) from G and the corresponding NDCT
+respectively.
+ 
+ 
+ 
+ * Multiscale SSIM provides more flexibility for better generalization
+than the single-scale method, including different
+resolutions and local distortions
+ 
 ## Experiments and Results
