@@ -9,7 +9,7 @@
 
 * Numerous methods have been designed for noise reduction in LDCT. These methods can be categorized as follows:
 
-1. Sinogram filtering-based techniques [4]–[8]: these methods directly process projection data in the projection domain [6], bowtie filtering [7], and structural adaptive filtering [8]. The
+1. Sinogram filtering-based techniques : these methods directly process projection data in the projection domain, bowtie filtering, and structural adaptive filtering. The
 main advantage of these methods is computational efficiency. 
 (bold) However, they may result in loss of structural information and spatial resolution in LDCT acquisition [6]–[8]
 
@@ -21,7 +21,7 @@ cost. Examples are non-local means-based filters, dictionary-learning-based K-si
 [23]. Even though these algorithms greatly suppress noise and artifacts, edge blurring or loss of spatial resolution may still remain in the processed LDCT images.
 
 * Deep Learning : 
-* Recent studies demonstrate that deep learning (DL) techniques have yielded successful results for noise reduction in LDCT.
+Recent studies demonstrate that deep learning (DL) techniques have yielded successful results for noise reduction in LDCT.
 
 1. Chen et al. [31] proposed a pioneering **Residual
 Encoder-Decoder convolutional neural network (REN-CNN)**
