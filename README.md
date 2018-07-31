@@ -183,7 +183,7 @@ characteristics as L2 loss, like a fast convergence speed.
 
 
 * Adversarial loss: The improved Wasserstein distance
-with the regularization term proposed in [43] is expressed as:
+with the regularization term proposed in [43] is expressed as above.
 
 
 * where the first two terms are computed for Wasserstein distance
@@ -215,6 +215,30 @@ respectively.
 * Multiscale SSIM provides more flexibility for better generalization
 than the single-scale method, including different
 resolutions and local distortions
+ 
+----------------------------------
+
+![Alt text]( )
+
+* L1 loss can deliver noise suppression
+and increase SNR. However, it blurs anatomical structures to
+some extent. In contrast, structural loss can encourage less
+smoothness compared with L1 loss and keep high contrast
+resolution. To capture merits of both loss functions, the
+structural sensitive loss (SSL) is expressed as:
+LSSL = τ × LSL + (1 − τ ) × L1 (10)
+where τ is the scale weight to control the balance between
+structure preservation in the first term (from Eq. 9) and noise
+suppression in the second term (from Eq. 4).
+
+
+* However, these two methods may inevitably lose some
+important diagnostic features so adversarial loss is incorporated
+in our work to maintain texture and structure features.
+In summary, the overall objective function of SMGAN is
+expressed as:
+Lobj = LSSL + β × Ladv 
+ 
  
 ## Experiments and Results
 
@@ -273,3 +297,18 @@ number of epochs with respect to different algorithms
 * Visual assessments by three radiologist readers
 
 ![Alt text](https://user-images.githubusercontent.com/37169177/43469411-138a495a-9521-11e8-8db2-0004385ab271.PNG)
+
+
+## Limitation
+
+* Although our proposed network has achieved high-quality
+denoised LDCT images, there are still some limitations. First
+and foremost, the feature edges in the processed results may
+13 still have blurring effects. 
+
+* Secondly, some structural variations
+between NDCT and LDCT did not perfectly match in each
+pixel. A better way to incorporate a dynamic routing model to
+enhance information correlation between NDCT and LDCT is
+to design a novel complex network to improve the transformation
+modeling capability, which is the work we have started.
