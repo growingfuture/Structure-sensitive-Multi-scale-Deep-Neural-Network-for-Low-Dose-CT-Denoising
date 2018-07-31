@@ -91,21 +91,29 @@ performance.
 [image]
 
 #### 1) 3D CNN Generator
-The generator G consists of eight
+
+* The generator G consists of eight
 3D convolutional (Conv) layers. The first 7 layers each have
-32 filters and the last layer has only 1 filter. Based on our
+32 filters and the last layer has only 1 filter. 
+
+* Based on our
 practical experience, the odd-numbered convolutional layers
-have 3  3  1 filters, and the even-numbered convolutional
-layers have 3  3  3 filters. The size of the extracted 3D
-patches used as the input is 80  80  11. See Fig. 1. Note
+have 3 * 3 * 1 filters, and the even-numbered convolutional
+layers have 3 * 3 * 3 filters. The size of the extracted 3D
+patches used as the input is 80 * 80 * 11. 
+
+* See Fig. 1. Note
 that the variable n denotes the number of the filters and
 s denotes the stride size which means the step size of the
 filer when moving across the image so that n32s1 stands
-for 32 feature maps with stride one pixel. Furthermore, a
-pooling layer after each Conv layer may lead to loss of subtle
+for 32 feature maps with stride one pixel. 
+
+* A pooling layer after each Conv layer may lead to loss of subtle
 textural and structural information, and spatial inconsistency
 in training stages. Therefore, the pooling layer is not applied
-in this network. Next, the Rectified Linear Unit (ReLU) [41]
+in this network. 
+
+* Next, the Rectified Linear Unit (ReLU) [41]
 is utilized as the activation function after each Conv layer. The
 benefits to utilize ReLu are as follows. First, it produces nonlinear
 interactions with its input, which in turn prevents the
@@ -115,24 +123,20 @@ in the inputs to each Conv layer to perform effective feature
 extraction in high-dimensional feature space 
 
 #### 2) Structure-Sensitive Loss (SSL) Function
-The proposed
-3D SSL function measures the patch-wise error between the
-3D output from 3D ConvNet and the 3D NDCT images in
-spatial domain. This error was back-propagated [42] through
-the neural network to update the weights of network. See
-Section II-D for more details about loss functions which are
-embedded in the proposed function.
+The proposed 3D SSL function measures the patch-wise error between the
+3D output from 3D ConvNet and the 3D NDCT images in spatial domain. This error was back-propagated [42] through
+the neural network to update the weights of network. 
 
 #### 3) Discriminator
-The discriminator D used in this network
-is made up of six convolutional layers with 64, 64, 128,
-128, 256, and 256 filters and the kernel size of 3  3. Two
-fully-connected (FC) layers produce 1024 and 1 feature maps
+The discriminator D used in this network is made up of six convolutional layers with 64, 64, 128,
+128, 256, and 256 filters and the kernel size of 3 * 3. Two fully-connected (FC) layers produce 1024 and 1 feature maps
 respectively. Each layer is followed by a leaky ReLU in the
-manner of max(0; x)􀀀 max(0;􀀀x) [41] where  is a small
-constant. A stride of one pixel is applied for odd-numbered
+manner of max(0; x) - *a* max(0;-x) [41] where *a* is a small
+constant.
+
+* A stride of one pixel is applied for odd-numbered
 Conv layers and a stride of two pixels for even-numbered Conv
-layers. The input fed to D has the size of 64643, and is
+layers. The input fed to D has the size of 64 * 64 * 3, and is
 the output of G. The reason why we use a 2D filter in D is
 to lower the computational complexity. Since the adversarial
 loss between each two adjacent layers in one volumetric patch
