@@ -81,15 +81,14 @@ performance.
 
 ## Methods
 
-### Overview
-
-
 ### Network Structure
 
 
 ![Alt text](https://user-images.githubusercontent.com/37169177/43446438-d96fc016-94e3-11e8-83b9-ef9c102169f7.PNG)
 
 #### 1) 3D CNN Generator
+
+![Alt text](https://user-images.githubusercontent.com/37169177/43466949-a3af9612-951b-11e8-894e-9225ca1ffb5f.png)
 
 * The generator G consists of eight
 3D convolutional (Conv) layers. The first 7 layers each have
@@ -123,11 +122,15 @@ extraction in high-dimensional feature space
 
 #### 2) Structure-Sensitive Loss (SSL) Function
 
+![Alt text](https://user-images.githubusercontent.com/37169177/43466951-a3e03cea-951b-11e8-90fa-295044b26568.png)
+
 * The proposed 3D SSL function measures the patch-wise error between the
 3D output from 3D ConvNet and the 3D NDCT images in spatial domain. This error was back-propagated [42] through
 the neural network to update the weights of network. 
 
 #### 3) Discriminator
+
+![Alt text](https://user-images.githubusercontent.com/37169177/43466952-a40cb55e-951b-11e8-83eb-18d40fbedd1c.png)
 
 * The discriminator D used in this network is made up of six convolutional layers with 64, 64, 128,
 128, 256, and 256 filters and the kernel size of 3 * 3. Two fully-connected (FC) layers produce 1024 and 1 feature maps
