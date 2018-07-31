@@ -88,7 +88,7 @@ performance.
 ### Network Structure
 
 
-[image]
+![Alt text](https://user-images.githubusercontent.com/37169177/43446438-d96fc016-94e3-11e8-83b9-ef9c102169f7.PNG)
 
 #### 1) 3D CNN Generator
 
