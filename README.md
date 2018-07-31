@@ -206,11 +206,65 @@ of the human visual system (HVS).
 local means, standard deviation and cross-covariance of the
 image pair (x; z) from G and the corresponding NDCT
 respectively.
- 
- 
- 
- * Multiscale SSIM provides more flexibility for better generalization
+  
+* Multiscale SSIM provides more flexibility for better generalization
 than the single-scale method, including different
 resolutions and local distortions
  
 ## Experiments and Results
+
+### Experiments
+
+* Data Set: real clinical dataset, published
+by Mayo Clinic for the 2016 NIH-AAPM-Mayo Clinic Low
+Dose CT Grand Challenge
+
+* For **limited data**, in order to improve **generalization**
+performance of the network and avoid over-fitting, we adopt
+the famous **”10-fold cross validation” strategy**
+
+* For **data preprocessing**, first, we apply the overlapping
+strategy in cropping over 100,000 pairs of training and label
+patches and over 5,000 pairs for validation from remaining
+patient images with the same size of 80 × 80 × 11. Then, the
+”10-fold cross validation” strategy is adopted. Next, the CT
+Hounsfield Unit (HU) scale is normalized to [0, 1] before the
+images are fed to the network.
+
+* For **qualitative comparison**, in order to fully validate
+the performance of our proposed methods (SMGAN-2D and
+SMGAN-3D), we compare with eight state-of-the-art denoising
+methods, including CNN-L2 (L2-net), CNN-L1 (L1-
+net), structural-loss net (SL-net), multi-scale structural-loss
+net (MSL-net), WGAN, BM3D [23], RED-CNN [31], and
+WGAN-VGG
+
+
+### Results
+
+* Comparison among loss function value versus the
+number of epochs with respect to different algorithms
+
+![Alt text](https://user-images.githubusercontent.com/37169177/43468416-e0c2a140-951e-11e8-80a1-3fd038873ef0.PNG)
+
+![Alt text](https://user-images.githubusercontent.com/37169177/43468417-e0ef7da0-951e-11e8-8417-461115a78edb.PNG)
+
+![Alt text](https://user-images.githubusercontent.com/37169177/43468418-e1189906-951e-11e8-8c9e-7756f16bcf7b.PNG)
+
+---------------------------
+
+* CT image results
+
+![Alt text](https://user-images.githubusercontent.com/37169177/43469405-12ce30d0-9521-11e8-8cc6-e92ae006d7f5.PNG)
+
+![Alt text](https://user-images.githubusercontent.com/37169177/43469406-12fe8690-9521-11e8-8998-0769c375db3b.PNG)
+
+![Alt text](https://user-images.githubusercontent.com/37169177/43469408-132e73aa-9521-11e8-927a-259ed2283df9.PNG)
+
+![Alt text](https://user-images.githubusercontent.com/37169177/43469410-135d8d3e-9521-11e8-96ff-e0f9f346c8ca.PNG)
+
+---------------------------
+
+* Visual assessments by three radiologist readers
+
+![Alt text](https://user-images.githubusercontent.com/37169177/43469411-138a495a-9521-11e8-8db2-0004385ab271.PNG)
