@@ -4,7 +4,6 @@
 
 ## Introduction
 
-
 ### Previous Research for Low Dose CT Denoising
 
 * Numerous methods have been designed for noise reduction in LDCT. These methods can be categorized as follows:
@@ -123,15 +122,17 @@ in the inputs to each Conv layer to perform effective feature
 extraction in high-dimensional feature space 
 
 #### 2) Structure-Sensitive Loss (SSL) Function
-The proposed 3D SSL function measures the patch-wise error between the
+
+* The proposed 3D SSL function measures the patch-wise error between the
 3D output from 3D ConvNet and the 3D NDCT images in spatial domain. This error was back-propagated [42] through
 the neural network to update the weights of network. 
 
 #### 3) Discriminator
-The discriminator D used in this network is made up of six convolutional layers with 64, 64, 128,
+
+* The discriminator D used in this network is made up of six convolutional layers with 64, 64, 128,
 128, 256, and 256 filters and the kernel size of 3 * 3. Two fully-connected (FC) layers produce 1024 and 1 feature maps
 respectively. Each layer is followed by a leaky ReLU in the
-manner of max(0; x) - *a* max(0;-x) [41] where *a* is a small
+manner of max(0; x) - *a* max(0;-x) where *a* is a small
 constant.
 
 * A stride of one pixel is applied for odd-numbered
@@ -149,5 +150,29 @@ removes the sigmoid cross entropy layer in D.
 ### Loss Functions for Noise Reduction
 
 (formula and explains)
+
+* L2 loss: 
+The L2 loss can efficiently suppress the background
+noise, but it makes the denoised results unnatural
+and blurs the image contents. This is expected due to its
+regression-to-mean nature [38], [43]. Furthermore, L2 loss
+assumes that background noise is white Gaussian noise, which
+is independent of local image features [44]. However, the noise
+within the CT system comes from various sources, such as
+quantum noise. This is another reason why the diagnostic
+image quality optimized by L2 loss is undesirable.
+The formula of L2 loss is expressed as:
+
+![Alt text]()
+
+
+where H, W, D stand for the height, width, and depth of
+the 3D image patches, respectively, x denotes gold-standard
+images (NDCT), and G(y) represents the generated images
+from source (LDCT) images y. It is worth noting that since
+L2 loss has appealing properties of differentiability, convexity,
+and symmetry, the mean squared error (MSE) or L2 loss is
+still a popular choice in denoising tasks [45].
+
 
 ## Experiments and Results
