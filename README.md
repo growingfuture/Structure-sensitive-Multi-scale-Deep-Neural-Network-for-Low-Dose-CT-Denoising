@@ -210,6 +210,8 @@ local means, standard deviation and cross-covariance of the
 image pair (x; z) from G and the corresponding NDCT
 respectively.
   
+![Alt text](https://user-images.githubusercontent.com/37169177/43457899-1d44763c-9503-11e8-9913-c63a0c6af8aa.PNG)
+  
 * Multiscale SSIM provides more flexibility for better generalization
 than the single-scale method, including different
 resolutions and local distortions
