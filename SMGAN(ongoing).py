@@ -30,7 +30,6 @@ class WGAN(object):
             self.output_height = 80
             self.output_width = 80
 
-
             self.z_dim = z_dim         # dimension of noise-vector
             self.c_dim = 1
 
@@ -57,30 +56,37 @@ class WGAN(object):
         # Architecture : (64)4c2s-(128)4c2s_BL-FC1024_BL-FC1_S
         with tf.variable_scope("discriminator", reuse=reuse):
 
-            net = lrelu(conv2d(x, 64, 4, 4, 2, 2, name='d_conv1'))
-            net = lrelu(bn(conv2d(net, 128, 4, 4, 2, 2, name='d_conv2'), is_training=is_training, scope='d_bn2'))
-            net = tf.reshape(net, [self.batch_size, -1])
-            net = lrelu(bn(linear(net, 1024, scope='d_fc3'), is_training=is_training, scope='d_bn3'))
-            out_logit = linear(net, 1, scope='d_fc4')
-            out = tf.nn.sigmoid(out_logit)
+            conv1 = tf.layers.conv2d(x, 64, 3, strides=(1, 1), activation=tf.nn.leaky_relu)
+            conv2 = tf.layers.conv2d(conv1, 64, 3, strides=(1, 1), activation=tf.nn.leaky_relu)
+            conv3 = tf.layers.conv2d(conv2, 128, 3, strides=(1, 1), activation=tf.nn.leaky_relu)
+            conv4 = tf.layers.conv2d(conv3, 128, 3, strides=(1, 1), activation=tf.nn.leaky_relu)
+            conv5 = tf.layers.conv2d(conv4, 256, 3, strides=(1, 1), activation=tf.nn.leaky_relu)
+            conv6 = tf.layers.conv2d(conv5, 256, 3, strides=(1, 1), activation=tf.nn.leaky_relu)
+            fc1 = tf.contrib.layers.flatten(conv6)
+            fc1 = tf.layers.dense(fc1, 1024)
 
-            return out, out_logit, net
+         return fc1
 
     def generator(self, z, is_training=True, reuse=False):
         # Network Architecture is exactly same as in infoGAN (https://arxiv.org/abs/1606.03657)
         # Architecture : FC1024_BR-FC7x7x128_BR-(64)4dc2s_BR-(1)4dc2s_S
         with tf.variable_scope("generator", reuse=reuse):
-            net = tf.nn.relu(bn(linear(z, 1024, scope='g_fc1'), is_training=is_training, scope='g_bn1'))
-            net = tf.nn.relu(bn(linear(net, 128 * 7 * 7, scope='g_fc2'), is_training=is_training, scope='g_bn2'))
-            net = tf.reshape(net, [self.batch_size, 7, 7, 128])
-            net = tf.nn.relu(
-                bn(deconv2d(net, [self.batch_size, 14, 14, 64], 4, 4, 2, 2, name='g_dc3'), is_training=is_training,
-                   scope='g_bn3'))
 
-            out = tf.nn.sigmoid(deconv2d(net, [self.batch_size, 28, 28, 1], 4, 4, 2, 2, name='g_dc4'))
+            # Convolution Layer with 32 filters and a kernel size of 3
+            conv1 = tf.layers.conv2d(x, 32, 3, strides=(1, 1), activation=tf.nn.relu)
+            conv2 = tf.layers.conv2d(conv1, 32, 3, strides=(1, 1), activation=tf.nn.relu)
+            conv3 = tf.layers.conv2d(conv2, 32, 3, strides=(1, 1), activation=tf.nn.relu)
+            conv4 = tf.layers.conv2d(conv3, 32, 3, strides=(1, 1), activation=tf.nn.relu)
+            conv5 = tf.layers.conv2d(conv4, 32, 3, strides=(1, 1), activation=tf.nn.relu)
+            conv6 = tf.layers.conv2d(conv5, 32, 3, strides=(1, 1), activation=tf.nn.relu)
+            conv7 = tf.layers.conv2d(conv6, 1, 3, strides=(1, 1), activation=tf.nn.relu)
 
-            return out
+        return conv7
 
+    def SSL(self, z, is_training=True, reuse=False)
+        # Structure-Sensitive Loss(SSl) Function
+        
+        
     def build_model(self):
         # some parameters
         image_dims = [self.input_height, self.input_width, self.c_dim]
