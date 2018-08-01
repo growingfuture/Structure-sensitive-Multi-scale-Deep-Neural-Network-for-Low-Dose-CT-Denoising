@@ -8,16 +8,15 @@
 
 * Numerous methods have been designed for noise reduction in LDCT. These methods can be categorized as follows:
 
-1. Sinogram filtering-based techniques : these methods directly process projection data in the projection domain, bowtie filtering, and structural adaptive filtering. The
+1. **Sinogram filtering-based techniques** : these methods directly process projection data in the projection domain, bowtie filtering, and structural adaptive filtering. The
 main advantage of these methods is computational efficiency. 
-(bold) However, they may result in loss of structural information and spatial resolution in LDCT acquisition [6]–[8]
+**However, they may result in loss of structural information and spatial resolution in LDCT acquisition**
 
-2. Iterative reconstruction(IR) : IR techniques may potentially produce high signal-to-noise ratio (SNR). 
-However, these methods require substantial computational resource, optimal parameter settings and accurate modeling of noise properties; 
+2. **Iterative reconstruction(IR)** : IR techniques may potentially produce high signal-to-noise ratio (SNR). 
+**However, these methods require substantial computational resource, optimal parameter settings and accurate modeling of noise properties** 
 
-3. Image space denoising techniques : these techniques can be performed directly on reconstructed images so that they can be applied across various CT scanners at a very low
-cost. Examples are non-local means-based filters, dictionary-learning-based K-singular value decomposition (KSVD) method [18] and the block-matching 3D (BM3D) algorithms [22],
-[23]. Even though these algorithms greatly suppress noise and artifacts, edge blurring or loss of spatial resolution may still remain in the processed LDCT images.
+3. **Image space denoising techniques** : these techniques can be performed directly on reconstructed images so that they can be applied across various CT scanners at a very low
+cost. Examples are non-local means-based filters, dictionary-learning-based K-singular value decomposition (KSVD) method [18] and the block-matching 3D (BM3D) algorithms. Even though these algorithms greatly suppress noise and artifacts, **edge blurring or loss of spatial resolution may still remain in the processed LDCT images.**
 
 * Deep Learning : 
 Recent studies demonstrate that deep learning (DL) techniques have yielded successful results for noise reduction in LDCT.
@@ -26,10 +25,10 @@ Recent studies demonstrate that deep learning (DL) techniques have yielded succe
 Encoder-Decoder convolutional neural network (REN-CNN)**
 to predict NDCT images from noisy LDCT images. This
 method greatly reduces the background noise and artifacts.
-*However, the major limitation is that the content of the
-results is blurry since the method is iteratively minimizing
+However, the major limitation is that the content of the
+results is **blurry** since the method is iteratively minimizing
 the mean-squared error per voxel between generated LDCT
-and the corresponding NDCT images.*
+and the corresponding NDCT images.
 
 2. To cope with this limitation,
 **generative adversarial networks (GANs)** [36] provide a
@@ -41,9 +40,9 @@ adversarial loss, measures the distance between the synthetic
 data distribution and the real data distribution in order to
 improve the performance of G and D. Here the GAN uses
 arXiv:1805.00587v2 [cs.CV] 4 May 2018 2 Jensen-Shannon (JS) divergence to evaluate the similarity of
-the two data distributions [36]. *However, several problems
-still exist in training GAN, such as unstable training or nonconvergence
-issues.*
+the two data distributions [36]. However, several problems
+still exist in training GAN, such as **unstable training or nonconvergence
+issues.**
 
 3. To cope with these issues, Arjovsky et al.
 introduced the **Wasserstein distance** instead of Jensen-Shannon
@@ -225,19 +224,19 @@ and increase SNR. However, it blurs anatomical structures to
 some extent. In contrast, structural loss can encourage less
 smoothness compared with L1 loss and keep high contrast
 resolution. To capture merits of both loss functions, the
-structural sensitive loss (SSL) is expressed as:
-LSSL = τ × LSL + (1 − τ ) × L1 (10)
+structural sensitive loss (SSL) is expressed above.
 where τ is the scale weight to control the balance between
 structure preservation in the first term (from Eq. 9) and noise
 suppression in the second term (from Eq. 4).
 
 
+![Alt text]( )
+
 * However, these two methods may inevitably lose some
 important diagnostic features so adversarial loss is incorporated
 in our work to maintain texture and structure features.
 In summary, the overall objective function of SMGAN is
-expressed as:
-Lobj = LSSL + β × Ladv 
+expressed above.
  
  
 ## Experiments and Results
