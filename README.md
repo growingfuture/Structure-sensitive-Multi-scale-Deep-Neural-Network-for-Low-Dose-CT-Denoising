@@ -217,7 +217,7 @@ resolutions and local distortions
  
 ----------------------------------
 
-![Alt text]( )
+![Alt text](https://user-images.githubusercontent.com/37169177/43457902-1f6eb3aa-9503-11e8-9355-4e683634a55a.PNG)
 
 * L1 loss can deliver noise suppression
 and increase SNR. However, it blurs anatomical structures to
@@ -230,7 +230,7 @@ structure preservation in the first term (from Eq. 9) and noise
 suppression in the second term (from Eq. 4).
 
 
-![Alt text]( )
+![Alt text](https://user-images.githubusercontent.com/37169177/43457903-2098e85e-9503-11e8-919a-cc911cf20637.PNG)
 
 * However, these two methods may inevitably lose some
 important diagnostic features so adversarial loss is incorporated
